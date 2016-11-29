@@ -1,12 +1,12 @@
 function scanCalibrate
 
 step_accumulate = 10; % шаг накопления данных
-fname = 'I:\!data\last\20161124065305.frq';
+fname = 'I:\!data\last\20161129051604.frq';
 %fname = 'D:\!data\last\20161107090206.frq';
 h = figure('NumberTitle','off');
 out = getData(fname, 0);
 
-ind = 5; % номер частоты
+ind = 2; % номер частоты
 if out.properties.ver == 1,
     i = 0;
     while 1,
@@ -30,7 +30,7 @@ if out.properties.ver == 1,
         
         i = j+1;
         
-        pause(1);
+        pause(0.1);
     end
 else
     close(h)
