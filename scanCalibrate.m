@@ -7,12 +7,12 @@ h = figure('NumberTitle','off');
 out = getData(fname, 0);
 
 ind = 2; % номер частоты
-if out.properties.ver == 1,
+if out.properties.ver == 1
     i = 0;
-    while 1,
+    while 1
         
         a = zeros(out.properties.count_height,5);
-        for j = i:(i+step_accumulate-1),
+        for j = i:(i+step_accumulate-1)
             out = getData(fname, j);            
             a = a + abs(out.data);
         end
@@ -57,16 +57,16 @@ function out = getData(fname, idx_position)
 %idx_position = 100;
 
 % 1. Проверим файл на существование.
-if ~ischar(fname), 
+if ~ischar(fname)
     error('Имя файла - всегда строка!'); 
 end
-if ~exist(fname, 'file') == 2,
+if ~exist(fname, 'file') == 2
    error('Указанный файл не существует или находится в другом месте.'); 
 end
 
 % 2. Открываем файл на чтение и извлекаем параметры эксперимента.
 [fid, message] = fopen(fname, 'r');
-if ( fid == -1), 
+if ( fid == -1)
     error(message); 
 end
 properties = getHeader(fid);
@@ -80,7 +80,7 @@ out.h = (0 : properties.height_step/1000. : height_max)'; % высоты первого отраж
 out.data = getDataUnit(properties, idx_position);
 
 % 4. Закрываем файл данных.
-if ~isempty(fid),
+if ~isempty(fid)
     fclose(fid);
 end
 
@@ -129,7 +129,7 @@ properties.count_height = fread(fid,1,'uint32');
 properties.count_modules = fread(fid,1,'uint32');
 properties.pulse_frq = fread(fid,1,'uint32');
 
-for i=1:properties.count_modules, % последовательное чтение частот зондирования
+for i=1:properties.count_modules % последовательное чтение частот зондирования
     properties.frqs(i) = fread(fid,1,'uint32');
 end
 

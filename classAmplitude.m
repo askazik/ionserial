@@ -61,7 +61,7 @@ classdef classAmplitude < memmapfile
             str{4}=sprintf('Date: (%s) UT', datestr(obj.date));
             str{5}=sprintf('dt: (%.3f), s', obj.dt);
             str = sprintf('%s\n',str{:});
-            disp(str)
+            fprintf(str)
         end
 
         %% Get version of the data file.
@@ -150,7 +150,7 @@ classdef classAmplitude < memmapfile
             
             % 1. Открываем файл на чтение.
             [fid, message] = fopen(this.filename, 'r');
-            if ( fid == -1),
+            if ( fid == -1)
                 error(message);
             end
             
@@ -173,14 +173,14 @@ classdef classAmplitude < memmapfile
             properties.pulse_frq = fread(fid,1,'uint32');
             
             % последовательное чтение частот зондирования
-            for i=1:properties.count_modules,
+            for i=1:properties.count_modules
                 properties.frqs(i) = fread(fid,1,'uint32');
             end
             
             properties.data_begin_position = ftell(fid);
             
             % 3. Закрываем файл данных.
-            if ~isempty(fid),
+            if ~isempty(fid)
                 fclose(fid);
             end
         end
